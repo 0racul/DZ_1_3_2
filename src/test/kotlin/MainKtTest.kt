@@ -22,6 +22,8 @@ class MainKtTest {
     @Test
     fun howMuch_vk_denied_limit_month() {
 
+
+        //sdf
         val payment = 500
         val paymentType = "vk"
         val previousPayments = 1500000
