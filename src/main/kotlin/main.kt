@@ -1,5 +1,6 @@
+import java.math.BigDecimal
 
-fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPayment: Int): Int{
+fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPayment: Int): Int {
 
     var previousPaymentsCents = 0
 
@@ -17,7 +18,7 @@ fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPaymen
 
             commission = (currentPaymentCents / 100 * 0.6 + 20_00).toInt()
 
-            if (currentPaymentCents >= 300_00 && ((currentPaymentCents + previousPaymentsCents) <= 75_000_00)){
+            if (currentPaymentCents >= 300_00 || ((currentPaymentCents + previousPaymentsCents) <= 75_000_00)) {
                 commission = 0
 
             }
@@ -27,7 +28,7 @@ fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPaymen
 
             commission = (currentPaymentCents / 100 * 0.75).toInt()
 
-            if (commission < 35_00){
+            if (commission < 35_00) {
                 commission = 35_00
             }
         }
@@ -36,7 +37,7 @@ fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPaymen
 
             commission = 0
 
-            if (currentPaymentCents >= 15_000_00 && currentPaymentCents + previousPaymentsCents >= 40_000_00) {
+            if (currentPaymentCents >= 15_000_00 || currentPaymentCents + previousPaymentsCents >= 40_000_00) {
                 commission = -1
 
             }
@@ -50,11 +51,15 @@ fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPaymen
 
 fun main(){
 
-    val payment = 500
-    val paymentType = "vk"
-    val previousPayments = 1500
+    val payment = 200
+    val paymentType = "maestro"
+    val previousPayments = 75_000
+
+    val expectedCommission = 1
 
     val commission = howMuch(paymentType, previousPayments, payment)
+
+    println("sdfsd")
 
     if (commission < 0){
 
