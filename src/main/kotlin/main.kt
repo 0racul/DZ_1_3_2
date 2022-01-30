@@ -9,28 +9,17 @@ fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPaymen
 
     val currentPaymentCents = currentPayment * 100
 
-
     var commission = 0
 
     when (paymentType) {
 
-        in "vk", "master", "maestro" -> {
+        in "maestro", "master" -> {
 
-            commission = 0
+            commission = (currentPaymentCents / 100 * 0.6 + 20_00).toInt()
 
-            if (paymentType == "master" && paymentType == "maestro") {
+            if (currentPaymentCents >= 300_00 && ((currentPaymentCents + previousPaymentsCents) <= 75_000_00)){
+                commission = 0
 
-                if (currentPaymentCents >= 300__00) {
-                    commission = 0
-                }
-
-                if ((currentPaymentCents + previousPaymentsCents) >= 75_000_00) {
-                    commission = 0
-
-                }
-            }
-            else if (paymentType == "vk" || currentPaymentCents >= 15_000_00) {
-                commission = -1
             }
         }
 
@@ -38,8 +27,17 @@ fun howMuch(paymentType: String = "vk", previousPayments: Int = 0, currentPaymen
 
             commission = (currentPaymentCents / 100 * 0.75).toInt()
 
-            if (commission <= 3500) {
-                commission = 3500
+            if (commission < 35_00){
+                commission = 35_00
+            }
+        }
+
+        in "vk" -> {
+
+            commission = 0
+
+            if (currentPaymentCents >= 15_000_00 && currentPaymentCents + previousPaymentsCents >= 40_000_00) {
+                commission = -1
 
             }
         }
